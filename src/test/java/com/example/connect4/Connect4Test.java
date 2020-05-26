@@ -3,7 +3,7 @@ package com.example.connect4;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 class Connect4Test {
 
@@ -48,6 +48,15 @@ class Connect4Test {
 
     @Test
     void cannotPlayOnFullColumn() {
+        // GIVEN a full column
+        game.play(firstPlayer, 2);
+        game.play(secondPlayer, 2);
+        game.play(firstPlayer, 2);
+        game.play(secondPlayer, 2);
+        game.play(firstPlayer, 2);
+        game.play(secondPlayer, 2);
 
+        // WHEN one plays on a full column, then exception
+        assertThatThrownBy(() -> game.play(firstPlayer, 2)).isInstanceOf(ColumnFullException.class);
     }
 }

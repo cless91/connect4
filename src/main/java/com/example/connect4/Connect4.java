@@ -37,8 +37,16 @@ public class Connect4 {
 
     public void play(Player firstPlayer, int columnIdx) {
         tokens.putIfAbsent(columnIdx, new ArrayList<>());
+        if (columnIsFull(columnIdx)) {
+            String message = String.format("column %d is full", columnIdx);
+            throw new ColumnFullException(message);
+        }
         List<Token> column = this.tokens.get(columnIdx);
         column.add(new Token(column.size(), columnIdx));
+    }
+
+    private boolean columnIsFull(int columnIdx) {
+        return tokens.get(columnIdx).size() >= height;
     }
 
     public List<Token> getTokens() {
